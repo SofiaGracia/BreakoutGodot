@@ -1,0 +1,15 @@
+# Godot-specific files
+/android/
+.import/
+.godot/
+.mono/
+*.mono
+*.import
+
+# OS-specific files
+.DS_Store
+thumbs.db
+
+# Backup files
+*.tmp
+*.bak
