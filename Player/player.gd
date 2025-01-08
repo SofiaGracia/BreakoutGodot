@@ -12,9 +12,9 @@ func _physics_process(delta: float) -> void:
 	velocity.x=0
 	# Es llança cada vegada que s'actualitzen
 	# les fisiques (de normal 60 vegades per segon)
-	if Input.is_key_pressed(KEY_LEFT):
+	if Input.is_action_pressed("move_left"):
 		velocity.x = -1
-	elif Input.is_key_pressed(KEY_RIGHT):
+	elif Input.is_action_pressed("move_right"):
 		velocity.x = 1
 
 	# Multipliquem la velocitat per speed, pe a que vaja 
