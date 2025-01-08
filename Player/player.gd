@@ -13,9 +13,9 @@ func _physics_process(delta: float) -> void:
 	# Es llança cada vegada que s'actualitzen
 	# les fisiques (de normal 60 vegades per segon)
 	if Input.is_action_pressed("move_left"):
-		velocity.x = -1
+		move_left()
 	elif Input.is_action_pressed("move_right"):
-		velocity.x = 1
+		move_right()
 
 	# Multipliquem la velocitat per speed, pe a que vaja 
 	# mes rapid
@@ -24,3 +24,10 @@ func _physics_process(delta: float) -> void:
 	# Aquest depen de delta, per ser independent del framerate
 
 	move_and_collide(velocity * delta)
+	
+# Funcions per al moviment del jugador
+func move_left():
+	velocity.x = -1
+
+func move_right():
+	velocity.x = 1
