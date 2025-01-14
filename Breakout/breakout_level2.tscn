@@ -1,17 +1,16 @@
-[gd_scene load_steps=19 format=3 uid="uid://bs5k2mtkc2j8p"]
+[gd_scene load_steps=18 format=3 uid="uid://tp24r5hn1u74"]
 
-[ext_resource type="Script" path="res://Breakout/breakout.gd" id="1_72w8q"]
-[ext_resource type="Texture2D" uid="uid://bfi08tcuyvus" path="res://assets/paret_hortzontalt.png" id="1_edxjk"]
-[ext_resource type="Texture2D" uid="uid://rwcx054qu4x2" path="res://assets/paret_vertical.png" id="2_2llka"]
-[ext_resource type="PackedScene" uid="uid://b3i2o8u5tru4" path="res://Player/player.tscn" id="3_hkjj3"]
-[ext_resource type="PackedScene" uid="uid://dleikaun10083" path="res://Ball/ball.tscn" id="4_75k8g"]
-[ext_resource type="PackedScene" uid="uid://cbfrbpqcitqgf" path="res://Brick/brick.tscn" id="5_t4li6"]
-[ext_resource type="Script" path="res://Breakout/hud.gd" id="7_7wab4"]
-[ext_resource type="Script" path="res://Brick/brickFort.gd" id="7_e030w"]
-[ext_resource type="Texture2D" uid="uid://dtv0g6hsn1870" path="res://assets/heart.png" id="7_k2dwv"]
-[ext_resource type="FontFile" uid="uid://cfpoyjgd3n2y7" path="res://assets/fonts/Emulogic-zrEw.ttf" id="8_4dff7"]
-[ext_resource type="Script" path="res://Breakout/control_vides.gd" id="8_ghv5m"]
-[ext_resource type="FontFile" uid="uid://b3tnsapcfdoje" path="res://assets/fonts/MyGirlIsRetro-0Grz.ttf" id="9_tmsq3"]
+[ext_resource type="Script" path="res://Breakout/breakout.gd" id="1_tn5nu"]
+[ext_resource type="Texture2D" uid="uid://bfi08tcuyvus" path="res://assets/paret_hortzontalt.png" id="2_opl6g"]
+[ext_resource type="Texture2D" uid="uid://rwcx054qu4x2" path="res://assets/paret_vertical.png" id="3_rvs1k"]
+[ext_resource type="PackedScene" uid="uid://b3i2o8u5tru4" path="res://Player/player.tscn" id="4_cxhfp"]
+[ext_resource type="PackedScene" uid="uid://dleikaun10083" path="res://Ball/ball.tscn" id="5_ja56g"]
+[ext_resource type="PackedScene" uid="uid://cbfrbpqcitqgf" path="res://Brick/brick.tscn" id="6_hb0fd"]
+[ext_resource type="Script" path="res://Breakout/hud.gd" id="7_nbq32"]
+[ext_resource type="Script" path="res://Breakout/control_vides.gd" id="8_eccyp"]
+[ext_resource type="Texture2D" uid="uid://dtv0g6hsn1870" path="res://assets/heart.png" id="9_2dddx"]
+[ext_resource type="FontFile" uid="uid://cfpoyjgd3n2y7" path="res://assets/fonts/Emulogic-zrEw.ttf" id="10_804g0"]
+[ext_resource type="FontFile" uid="uid://b3tnsapcfdoje" path="res://assets/fonts/MyGirlIsRetro-0Grz.ttf" id="11_6ua17"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xk8l1"]
 size = Vector2(720, 30)
@@ -23,21 +22,21 @@ size = Vector2(29, 1245)
 size = Vector2(660, 130)
 
 [sub_resource type="LabelSettings" id="LabelSettings_3ds4o"]
-font = ExtResource("8_4dff7")
+font = ExtResource("10_804g0")
 font_size = 30
 
 [sub_resource type="LabelSettings" id="LabelSettings_i5rmy"]
-font = ExtResource("9_tmsq3")
+font = ExtResource("11_6ua17")
 font_size = 100
 font_color = Color(0.847996, 0.652086, 1.15514e-06, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_sajjd"]
-font = ExtResource("9_tmsq3")
+font = ExtResource("11_6ua17")
 font_size = 22
 font_color = Color(0.813143, 0.808114, 0, 1)
 
 [node name="Breakout" type="Node2D"]
-script = ExtResource("1_72w8q")
+script = ExtResource("1_tn5nu")
 
 [node name="StaticBody2D-ParetDalt" type="StaticBody2D" parent="."]
 
@@ -47,7 +46,7 @@ shape = SubResource("RectangleShape2D_xk8l1")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D-ParetDalt"]
 position = Vector2(360, 15)
-texture = ExtResource("1_edxjk")
+texture = ExtResource("2_opl6g")
 
 [node name="StaticBody2D-ParetEsquerra" type="StaticBody2D" parent="."]
 
@@ -58,7 +57,7 @@ shape = SubResource("RectangleShape2D_h6las")
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D-ParetEsquerra"]
 position = Vector2(15, 655)
 scale = Vector2(1, 0.868056)
-texture = ExtResource("2_2llka")
+texture = ExtResource("3_rvs1k")
 
 [node name="StaticBody2D-ParetDreta" type="StaticBody2D" parent="."]
 position = Vector2(690, 0)
@@ -70,7 +69,7 @@ shape = SubResource("RectangleShape2D_h6las")
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D-ParetDreta"]
 position = Vector2(15, 655)
 scale = Vector2(1, 0.868056)
-texture = ExtResource("2_2llka")
+texture = ExtResource("3_rvs1k")
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -78,41 +77,37 @@ texture = ExtResource("2_2llka")
 position = Vector2(360, 1158)
 shape = SubResource("RectangleShape2D_d2vg7")
 
-[node name="CharacterBody2D-Player" parent="." instance=ExtResource("3_hkjj3")]
+[node name="CharacterBody2D-Player" parent="." instance=ExtResource("4_cxhfp")]
 
-[node name="CharacterBody2D-Pilota" parent="." instance=ExtResource("4_75k8g")]
+[node name="CharacterBody2D-Pilota" parent="." instance=ExtResource("5_ja56g")]
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("5_t4li6")]
+[node name="CharacterBody2D" parent="." instance=ExtResource("6_hb0fd")]
 position = Vector2(367, 169)
 
-[node name="CharacterBody2D-Brick" parent="." instance=ExtResource("5_t4li6")]
+[node name="CharacterBody2D-Brick" parent="." instance=ExtResource("6_hb0fd")]
 position = Vector2(176, 169)
-
-[node name="CharacterBody2D-BrickFort" parent="." instance=ExtResource("5_t4li6")]
-position = Vector2(176, 169)
-script = ExtResource("7_e030w")
 
 [node name="HUD" type="CanvasLayer" parent="."]
-script = ExtResource("7_7wab4")
+script = ExtResource("7_nbq32")
 
 [node name="ControlVides" type="Control" parent="HUD"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("8_ghv5m")
+script = ExtResource("8_eccyp")
 
 [node name="Sprite2D-Vida1" type="Sprite2D" parent="HUD/ControlVides"]
 position = Vector2(63, 62)
-texture = ExtResource("7_k2dwv")
+texture = ExtResource("9_2dddx")
 
 [node name="Sprite2D-Vida2" type="Sprite2D" parent="HUD/ControlVides"]
 position = Vector2(94, 62)
-texture = ExtResource("7_k2dwv")
+texture = ExtResource("9_2dddx")
 
 [node name="Sprite2D-Vida3" type="Sprite2D" parent="HUD/ControlVides"]
 position = Vector2(127, 62)
-texture = ExtResource("7_k2dwv")
+texture = ExtResource("9_2dddx")
 
 [node name="ScoreLabel" type="Label" parent="HUD"]
 offset_left = 336.0
@@ -150,13 +145,7 @@ offset_bottom = 35.0
 text = "NEW GAME"
 label_settings = SubResource("LabelSettings_sajjd")
 
-[node name="CharacterBody2D-Brick2" parent="." instance=ExtResource("5_t4li6")]
-position = Vector2(561, 169)
-
-[node name="CharacterBody2D-Brick3" parent="." instance=ExtResource("5_t4li6")]
-position = Vector2(251, 275)
-
-[node name="CharacterBody2D-Brick4" parent="." instance=ExtResource("5_t4li6")]
-position = Vector2(482, 275)
+[node name="CharacterBody2D-Brick2" parent="." instance=ExtResource("6_hb0fd")]
+position = Vector2(365, 292)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

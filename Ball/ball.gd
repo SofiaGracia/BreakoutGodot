@@ -8,12 +8,15 @@ const YINICIAL = 970
 
 var sobre_jugador = false  # Estat inicial de la pilota
 var jugador                # Referència al jugador
+var objecte_col = null
+var cont_bricks = 1
 
 func _ready():
 	# Aquest metode s'invoca nomes una vegada, quan la pilota s'insereix a l'escena
 	set_ball_velocity()
 	
 func set_ball_velocity():
+	
 		# Calculem un enter aleatori. Si es parell el moviment
 	# sera cap a un costat, i si es imparell a l'altre
 	
@@ -57,8 +60,33 @@ func _physics_process(delta):
 		
 		# Nou: Amb get_collider sabem l'objecte amb que hem col·lissionat
 		var ObjecteCollissionat=info_colissio.get_collider()
-
+		
 		# Comprovem si l'objecte amb què ha col·lissionat és un brick
 		# Si és així, li enviarem la senyal `destroy` (realment, invocarem aquest mètode que hem creat)
 		if ("bricks" in ObjecteCollissionat.get_groups()):
-			ObjecteCollissionat.destroy()
+			
+			if (objecte_col!= null and "bricks" in objecte_col.get_groups()):
+				cont_bricks+=1
+			else:
+				cont_bricks = 1
+			
+			ObjecteCollissionat.destroy(cont_bricks)
+			
+		objecte_col = ObjecteCollissionat
+		
+	if sobre_jugador and jugador:
+		# Seguim la pala
+		position = jugador.global_position + Vector2(0, -30)
+		return #supose que este return seria en el cas de que este if estaguera abans que l'altre if
+
+func reset_ball(node_jugador):
+	jugador = node_jugador
+	sobre_jugador=true
+	velocity = Vector2.ZERO
+	position = jugador.global_position + Vector2(0, -30)
+	
+func _input(event):
+	if Input.is_action_pressed("throw_ball") and GameData.game_over != true:
+		sobre_jugador = false
+		velocity = Vector2(jugador.velocity.normalized().x, -1).normalized() * 400  # Llança cap amunt
+	
