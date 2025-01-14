@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bs5k2mtkc2j8p"]
+[gd_scene load_steps=20 format=3 uid="uid://bs5k2mtkc2j8p"]
 
 [ext_resource type="Script" path="res://Breakout/breakout.gd" id="1_72w8q"]
 [ext_resource type="Texture2D" uid="uid://bfi08tcuyvus" path="res://assets/paret_hortzontalt.png" id="1_edxjk"]
@@ -7,11 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://dleikaun10083" path="res://Ball/ball.tscn" id="4_75k8g"]
 [ext_resource type="PackedScene" uid="uid://cbfrbpqcitqgf" path="res://Brick/brick.tscn" id="5_t4li6"]
 [ext_resource type="Script" path="res://Breakout/hud.gd" id="7_7wab4"]
-[ext_resource type="Script" path="res://Brick/brickFort.gd" id="7_e030w"]
 [ext_resource type="Texture2D" uid="uid://dtv0g6hsn1870" path="res://assets/heart.png" id="7_k2dwv"]
 [ext_resource type="FontFile" uid="uid://cfpoyjgd3n2y7" path="res://assets/fonts/Emulogic-zrEw.ttf" id="8_4dff7"]
 [ext_resource type="Script" path="res://Breakout/control_vides.gd" id="8_ghv5m"]
 [ext_resource type="FontFile" uid="uid://b3tnsapcfdoje" path="res://assets/fonts/MyGirlIsRetro-0Grz.ttf" id="9_tmsq3"]
+[ext_resource type="PackedScene" uid="uid://cbfxwt0romgon" path="res://Brick/brickFort.tscn" id="12_526a4"]
+[ext_resource type="Script" path="res://Brick/brick_fort.gd" id="13_weqgl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xk8l1"]
 size = Vector2(720, 30)
@@ -88,10 +89,6 @@ position = Vector2(367, 169)
 [node name="CharacterBody2D-Brick" parent="." instance=ExtResource("5_t4li6")]
 position = Vector2(176, 169)
 
-[node name="CharacterBody2D-BrickFort" parent="." instance=ExtResource("5_t4li6")]
-position = Vector2(176, 169)
-script = ExtResource("7_e030w")
-
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("7_7wab4")
 
@@ -158,5 +155,9 @@ position = Vector2(251, 275)
 
 [node name="CharacterBody2D-Brick4" parent="." instance=ExtResource("5_t4li6")]
 position = Vector2(482, 275)
+
+[node name="CharacterBody2D-BrickFort" parent="." instance=ExtResource("12_526a4")]
+position = Vector2(365, 378)
+script = ExtResource("13_weqgl")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
