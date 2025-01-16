@@ -6,21 +6,18 @@ func _ready():
 	print("Estic en _ready")
 
 func _physics_process(delta: float) -> void:
-		# Si no toquem res, la velocitat es 0
-		# velocity 
+	velocity = Vector2.ZERO
+	# Valors del joystick
+	# obtenim la intensitat del moviment cap a la dreta i cap a l'esquerra respectivament.
+	var input_axis = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	# Mou el jugador
+	if GameData.game_over != true:
+		velocity.x = input_axis * SPEED
+		move_and_collide(velocity * delta)
+	
+# Funcions per al moviment del jugador
+func move_left():
+	velocity.x = -1
 
-	velocity.x=0
-	# Es llança cada vegada que s'actualitzen
-	# les fisiques (de normal 60 vegades per segon)
-	if Input.is_key_pressed(KEY_LEFT):
-		velocity.x = -1
-	elif Input.is_key_pressed(KEY_RIGHT):
-		velocity.x = 1
-
-	# Multipliquem la velocitat per speed, pe a que vaja 
-	# mes rapid
-	velocity.x *= SPEED
-
-	# Aquest depen de delta, per ser independent del framerate
-
-	move_and_collide(velocity * delta)
+func move_right():
+	velocity.x = 1
