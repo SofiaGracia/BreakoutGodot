@@ -10,9 +10,11 @@ var sobre_jugador = false  # Estat inicial de la pilota
 var jugador                # Referència al jugador
 var objecte_col = null
 var cont_bricks = 1
+var cors_tocats = []
 
 func _ready():
 	# Aquest metode s'invoca nomes una vegada, quan la pilota s'insereix a l'escena
+	#collision_layer = 4  # Assignem la capa de col·lisió de la pilota
 	set_ball_velocity()
 	
 func set_ball_velocity():
@@ -71,6 +73,17 @@ func _physics_process(delta):
 				cont_bricks = 1
 			
 			ObjecteCollissionat.destroy(cont_bricks)
+			
+		if ("hearts" in ObjecteCollissionat.get_groups()):
+			if not cors_tocats.has(ObjecteCollissionat):
+				print(GameData.lives)
+				GameData.lives += 1
+				var parent_node = get_parent()
+				var control = parent_node.get_node("HUD/ControlVides")	
+				control.pinta_vides(GameData.lives)
+				cors_tocats.append(ObjecteCollissionat)
+			#Ací vull pintar un nou cor en el cas de que el número de cors siga menor a 3
+			ObjecteCollissionat.destroy()
 			
 		objecte_col = ObjecteCollissionat
 		
