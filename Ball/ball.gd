@@ -12,6 +12,7 @@ var n_jugador = null
 func _ready():
 	# Aquest metode s'invoca nomes una vegada, quan la pilota s'insereix a l'escena
 	print("Estic passant per ací")
+	#Referencia al jugador
 	n_jugador = get_parent().get_node("CharacterBody2D-Player")
 	
 func start_ball():
@@ -90,7 +91,7 @@ func reset_ball(node_jugador):
 	position = n_jugador.global_position + Vector2(0, -30)
 	
 func _input(event):
-	if Input.is_action_pressed("throw_ball") and GameData.game_over != true and GameData.game_started == true and sobre_jugador == true:
+	if (Input.is_action_pressed("throw_ball") and GameData.game_over != true and GameData.game_started == true and sobre_jugador == true) or  (Input.is_action_pressed("throw_ball") and GameData.game_over != true and GameData.game_started == true and GameData.nivell_iniciat == true):
 		GameData.nivell_iniciat = false
 		sobre_jugador = false
 		velocity = Vector2(n_jugador.velocity.normalized().x, -1).normalized() * 400  # Llança cap amunt

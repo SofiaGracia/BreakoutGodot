@@ -15,7 +15,7 @@ func load_next_level():
 	if GameData.current_level>=levels.size():
 		#Ací deuriem carregar una pantalla de fi de joc?
 		GameData.joc_superat = true
-		get_tree().quit()
+		#get_tree().quit()
 		return
 		#GameData.current_level=0; # Joc infinit, quan arribem al final de les pantalles, tornem a començar
 	# Carreguem el nivell

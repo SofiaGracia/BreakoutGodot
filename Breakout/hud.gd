@@ -8,6 +8,7 @@ func _ready() -> void:
 	GameData.connect("lives_changed", Callable(self, "_on_lives_changed"))
 	GameData.connect("score_changed", Callable(self, "_on_score_changed"))
 	$Button.connect("pressed", Callable(self, "_on_BotoReinici_pressed"))
+	print("VALOR DE BOTO_START_AMAGAT: ", GameData.boto_start_amagat)
 	if GameData.boto_start_amagat == false:
 		$StartButton.connect("pressed",Callable(self,"start_game"))
 	
@@ -24,9 +25,16 @@ func _on_score_changed(new_score):
 func _process(delta: float) -> void:
 	pass
 func _on_BotoReinici_pressed():
+	#Pero no s'amaguen
+	$WinLabel.visible = false
+	$Button.visible = false
+	
 	GameData.score=0
 	GameData.lives=3
 	GameData.game_over=false
+	GameData.boto_start_amagat = false
+	GameData.game_started = true
+	GameData.nivell_iniciat = true
 
 	get_tree().change_scene_to_file("res://Breakout/breakout.tscn")
 	
@@ -35,6 +43,7 @@ func start_game():
 	$StartButton.visible = false
 	ball = get_parent().get_node("CharacterBody2D-Pilota")
 	if GameData.game_started != true:
+		GameData.game_started = true
 		GameData.boto_start_amagat = true
 		ball.start_ball()
-		GameData.game_started = true
+		
