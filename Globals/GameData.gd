@@ -12,6 +12,9 @@ var boto_start_amagat = false
 var nivell_iniciat = false
 var joc_superat = false
 
+#Variables de la pilota
+var swiping = false             # Si estem arrossegant
+
 # Definim les vides i els setters
 var lives: int = 3:
 	set(value):

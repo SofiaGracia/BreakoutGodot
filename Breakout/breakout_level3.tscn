@@ -211,7 +211,7 @@ text = "you win"
 label_settings = SubResource("LabelSettings_v2svu")
 
 [node name="CharacterBody2D-BrickFort" parent="." instance=ExtResource("12_5mf26")]
-position = Vector2(609, 373)
+position = Vector2(360, 640)
 script = ExtResource("13_kwvao")
 
 [node name="Area2D2-LimitHeart" type="Area2D" parent="."]
@@ -223,6 +223,20 @@ shape = SubResource("RectangleShape2D_0umf6")
 
 [node name="CharacterBody2D-Heart" parent="." instance=ExtResource("14_ivwjo")]
 position = Vector2(608, -30)
+
+[node name="CharacterBody2D-BrickFort2" parent="." instance=ExtResource("12_5mf26")]
+position = Vector2(360, 480)
+
+[node name="CharacterBody2D-BrickFort3" parent="." instance=ExtResource("12_5mf26")]
+position = Vector2(360, 320)
+
+[node name="CharacterBody2D-BrickFort4" parent="." instance=ExtResource("12_5mf26")]
+position = Vector2(360, 740)
+rotation = 1.57079
+
+[node name="CharacterBody2D-BrickFort5" parent="." instance=ExtResource("12_5mf26")]
+position = Vector2(360, 220)
+rotation = 1.57079
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Area2D2-LimitHeart" to="." method="_on_area_2d_2_limit_heart_body_entered"]

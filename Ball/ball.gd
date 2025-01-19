@@ -9,9 +9,13 @@ var cont_bricks = 1
 var cors_tocats = []
 var n_jugador = null
 
+# Variables per gestionar el swipe
+var swipe_start = Vector2.ZERO  # Punt d’inici de l’arrossegament
+var swipe_end = Vector2.ZERO    # Punt final de l’arrossegament
+var swipe_start_time = 0.0      # Temps d'inici de l'arrossegament
+
 func _ready():
 	# Aquest metode s'invoca nomes una vegada, quan la pilota s'insereix a l'escena
-	print("Estic passant per ací")
 	#Referencia al jugador
 	n_jugador = get_parent().get_node("CharacterBody2D-Player")
 	
@@ -90,9 +94,57 @@ func reset_ball(node_jugador):
 	velocity = Vector2.ZERO
 	position = n_jugador.global_position + Vector2(0, -30)
 	
+# Funcio per llançar la pilota
+func _throw_ball(start, end, duration):
+	# Només llancem si no és game over i està sobre el jugador
+	if GameData.game_over or not GameData.game_started:  
+		return
+		
+	# Calcula la direcció de l’arrossegament
+	var direction = (end - start).normalized()
+	
+	# Calcula la velocitat de la pilota en funció de la velocitat de l’arrossegament
+	# Recordeu: velocitat=espai/temps
+	# Calcularem la velocitat com el minim entre aquest valor calculat i 800, per limitar aquesta
+	var speed = min((end - start).length() / duration, 800)  
+	
+	# Assigna la velocitat i llança la pilota
+	sobre_jugador = false   # La pilota ja no esta sobre el jugador
+	velocity = direction * speed
+	GameData.nivell_iniciat = false
+	
+func _throw_ball_keyboard():
+	# Llança la pilota amb la velocitat predeterminada
+	GameData.nivell_iniciat = false
+	sobre_jugador = false
+	velocity = Vector2(n_jugador.velocity.normalized().x, -1).normalized() * 400  # Llança cap amunt
+	
 func _input(event):
-	if (Input.is_action_pressed("throw_ball") and GameData.game_over != true and GameData.game_started == true and sobre_jugador == true) or  (Input.is_action_pressed("throw_ball") and GameData.game_over != true and GameData.game_started == true and GameData.nivell_iniciat == true):
-		GameData.nivell_iniciat = false
-		sobre_jugador = false
-		velocity = Vector2(n_jugador.velocity.normalized().x, -1).normalized() * 400  # Llança cap amunt
+	
+	if (sobre_jugador == true) or (GameData.nivell_iniciat == true):
+		# Detectem si s'ha produit algun event tap/clic 
+		if event is InputEventMouseButton or event is InputEventScreenTouch:
+			# Comprovem si comença el swipe
+			if event.is_pressed():
+				# Si es aixi, donem el valor corresponent a les variables
+				GameData.swiping = true
+				swipe_start = event.position
+				# Obtenim l'instant inicial
+				swipe_start_time = Time.get_ticks_msec() / 1000.0
+			else:  # Quan s’allibera el clic/toc...
+				GameData.swiping = false
+				swipe_end = event.position
+				# Calculem la durada del swipe
+				var swipe_duration = Time.get_ticks_msec() / 1000.0 - swipe_start_time  # Duració del drag
+				# Si la duracio es de menys de 0.5 segons i a mes les
+				# posicions inicial i final son diferents (no ha fet un tap nomes)
+				# Llancem la pilota
+				if swipe_duration < 0.5 and swipe_start!=swipe_end:
+					_throw_ball(swipe_start, swipe_end, swipe_duration)
+	
+		if Input.is_action_pressed("throw_ball") and GameData.game_over != true and GameData.game_started == true and not GameData.swiping:
+			_throw_ball_keyboard()
+			#GameData.nivell_iniciat = false
+			#sobre_jugador = false
+			#velocity = Vector2(n_jugador.velocity.normalized().x, -1).normalized() * 400  # Llança cap amunt
 	

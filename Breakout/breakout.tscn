@@ -1,10 +1,11 @@
-[gd_scene load_steps=28 format=3 uid="uid://bs5k2mtkc2j8p"]
+[gd_scene load_steps=29 format=3 uid="uid://bs5k2mtkc2j8p"]
 
 [ext_resource type="Script" path="res://Breakout/breakout.gd" id="1_72w8q"]
 [ext_resource type="Texture2D" uid="uid://bfi08tcuyvus" path="res://assets/paret_hortzontalt.png" id="1_edxjk"]
 [ext_resource type="Texture2D" uid="uid://rwcx054qu4x2" path="res://assets/paret_vertical.png" id="2_2llka"]
 [ext_resource type="PackedScene" uid="uid://b3i2o8u5tru4" path="res://Player/player.tscn" id="3_hkjj3"]
 [ext_resource type="PackedScene" uid="uid://dleikaun10083" path="res://Ball/ball.tscn" id="4_75k8g"]
+[ext_resource type="PackedScene" uid="uid://cbfrbpqcitqgf" path="res://Brick/brick.tscn" id="5_t4li6"]
 [ext_resource type="Script" path="res://Breakout/hud.gd" id="7_7wab4"]
 [ext_resource type="Texture2D" uid="uid://dtv0g6hsn1870" path="res://assets/heart.png" id="7_k2dwv"]
 [ext_resource type="FontFile" uid="uid://cfpoyjgd3n2y7" path="res://assets/fonts/Emulogic-zrEw.ttf" id="8_4dff7"]
@@ -209,7 +210,7 @@ text = "you win"
 label_settings = SubResource("LabelSettings_v2svu")
 
 [node name="CharacterBody2D-BrickFort" parent="." instance=ExtResource("12_526a4")]
-position = Vector2(609, 373)
+position = Vector2(500, 380)
 script = ExtResource("13_weqgl")
 
 [node name="Area2D2-LimitHeart" type="Area2D" parent="."]
@@ -221,6 +222,9 @@ shape = SubResource("RectangleShape2D_0umf6")
 
 [node name="CharacterBody2D-Heart" parent="." instance=ExtResource("14_bgehm")]
 position = Vector2(608, -30)
+
+[node name="CharacterBody2D-Brick" parent="." instance=ExtResource("5_t4li6")]
+position = Vector2(240, 380)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Area2D2-LimitHeart" to="." method="_on_area_2d_2_limit_heart_body_entered"]

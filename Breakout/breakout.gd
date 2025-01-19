@@ -7,9 +7,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	
 	if body.name == "CharacterBody2D-Pilota":
 		GameData.lives -= 1
-		print("ha entrat una pilota")
 		# Gestionem el final del joc
 		if(GameData.lives<=0):
+			GameData.swiping = false
 			$HUD/GameOverLabel.visible=true
 			$HUD/Button.visible=true
 			GameData.game_over=true

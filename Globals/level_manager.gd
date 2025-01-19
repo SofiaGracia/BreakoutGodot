@@ -11,9 +11,9 @@ var levels = [
 func load_next_level():
 	# Pugem de nivell
 	GameData.current_level += 1
-	print("Nivell actual", GameData.current_level)
 	if GameData.current_level>=levels.size():
 		#Ací deuriem carregar una pantalla de fi de joc?
+		GameData.swiping = false
 		GameData.joc_superat = true
 		#get_tree().quit()
 		return
