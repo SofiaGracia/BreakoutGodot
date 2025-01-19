@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+var ball = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -7,6 +8,8 @@ func _ready() -> void:
 	GameData.connect("lives_changed", Callable(self, "_on_lives_changed"))
 	GameData.connect("score_changed", Callable(self, "_on_score_changed"))
 	$Button.connect("pressed", Callable(self, "_on_BotoReinici_pressed"))
+	if GameData.boto_start_amagat == false:
+		$StartButton.connect("pressed",Callable(self,"start_game"))
 	
 func _on_lives_changed(vides):
 	# Quan es modifica el nombre de vides, repintem les vides restants
@@ -26,3 +29,12 @@ func _on_BotoReinici_pressed():
 	GameData.game_over=false
 
 	get_tree().change_scene_to_file("res://Breakout/breakout.tscn")
+	
+func start_game():
+	$TitolJoc.visible = false
+	$StartButton.visible = false
+	ball = get_parent().get_node("CharacterBody2D-Pilota")
+	if GameData.game_started != true:
+		GameData.boto_start_amagat = true
+		ball.start_ball()
+		GameData.game_started = true

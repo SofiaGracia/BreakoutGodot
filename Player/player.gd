@@ -11,7 +11,7 @@ func _physics_process(delta: float) -> void:
 	# obtenim la intensitat del moviment cap a la dreta i cap a l'esquerra respectivament.
 	var input_axis = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	# Mou el jugador
-	if GameData.game_over != true:
+	if GameData.game_over != true and GameData.game_started == true:
 		velocity.x = input_axis * SPEED
 		move_and_collide(velocity * delta)
 	

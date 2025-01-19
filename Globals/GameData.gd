@@ -7,6 +7,10 @@ var current_level=0 # Nivell actual
 signal lives_changed(new_lives)
 signal score_changed(new_score)
 var game_over=false
+var game_started = false
+var boto_start_amagat = false
+var nivell_iniciat = false
+var joc_superat = false
 
 # Definim les vides i els setters
 var lives: int = 3:

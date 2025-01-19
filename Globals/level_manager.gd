@@ -3,15 +3,21 @@ extends Node
 # Definicio dels nivells
 var levels = [
 	"res://Breakout/breakout.tscn",
-	"res://Breakout/breakout_level2.tscn"]
+	"res://Breakout/breakout_level2.tscn",
+	"res://Breakout/breakout_level3.tscn"
+	]
 # Called when the node enters the scene tree for the first time.
 # Funcio per canviar de pantalla
 func load_next_level():
 	# Pugem de nivell
 	GameData.current_level += 1
+	print("Nivell actual", GameData.current_level)
 	if GameData.current_level>=levels.size():
-		GameData.current_level=0; # Joc infinit, quan arribem al final de les pantalles, tornem a començar
-
+		#Ací deuriem carregar una pantalla de fi de joc?
+		GameData.joc_superat = true
+		get_tree().quit()
+		return
+		#GameData.current_level=0; # Joc infinit, quan arribem al final de les pantalles, tornem a començar
 	# Carreguem el nivell
 	get_tree().change_scene_to_file(levels[GameData.current_level])
 	
@@ -31,6 +37,7 @@ func comprova_nombre_bricks():
 	await _pausa(0)
 
 	if get_tree().get_nodes_in_group("bricks").size() == 0:
+		GameData.nivell_iniciat = true
 		load_next_level()
 
 func _ready() -> void:

@@ -2,35 +2,25 @@ extends CharacterBody2D		# Script per controlar la pilota. Es un CharacterBody2D
 
 var speed=400				# Velocitat inicial de la pilota
 
-# Tindrem com a constants la posicio inicial de la pilota (dalt de jugador)
-const XINICIAL = 360
-const YINICIAL = 970
-
 var sobre_jugador = false  # Estat inicial de la pilota
 var jugador                # Referència al jugador
 var objecte_col = null
 var cont_bricks = 1
 var cors_tocats = []
+var n_jugador = null
 
 func _ready():
 	# Aquest metode s'invoca nomes una vegada, quan la pilota s'insereix a l'escena
-	#collision_layer = 4  # Assignem la capa de col·lisió de la pilota
+	print("Estic passant per ací")
+	n_jugador = get_parent().get_node("CharacterBody2D-Player")
+	
+func start_ball():
 	set_ball_velocity()
 	
 func set_ball_velocity():
 	
-		# Calculem un enter aleatori. Si es parell el moviment
-	# sera cap a un costat, i si es imparell a l'altre
-	
-	#Per ara deixarem este codi en el cas de que _on_area_2d_body_entered() cride a este métode
-	# i aixina podem reiniciar la posició de la pilota
-	# Quan ball es reinicie anirà en una de les quatre direccions que definim
-	#Fem que la pilota s'inicie desde el centre de la pantalla
-	var viewport_size = get_viewport().size
-	position = Vector2(viewport_size.x / 2, viewport_size.y / 2)
-	
-	# Amb esta linia s'iniciaria damunt del player
-	#position = Vector2(XINICIAL,YINICIAL)
+	# Posar ací la posicio
+	position = n_jugador.global_position + Vector2(0, -30)
 	
 	if randi() % 2 ==0:
 		velocity.x=1
@@ -45,6 +35,7 @@ func set_ball_velocity():
 	velocity *= speed
 
 func _physics_process(delta):
+	
 	# Nomes movem la pilota si es visible (self es la propia pilota)
 	if not self.visible:
 		return
@@ -87,19 +78,20 @@ func _physics_process(delta):
 			
 		objecte_col = ObjecteCollissionat
 		
-	if sobre_jugador and jugador:
+	if (sobre_jugador and jugador) or (GameData.nivell_iniciat == true):
 		# Seguim la pala
-		position = jugador.global_position + Vector2(0, -30)
-		return #supose que este return seria en el cas de que este if estaguera abans que l'altre if
+		position = n_jugador.global_position + Vector2(0, -30)
+		return 
 
 func reset_ball(node_jugador):
 	jugador = node_jugador
 	sobre_jugador=true
 	velocity = Vector2.ZERO
-	position = jugador.global_position + Vector2(0, -30)
+	position = n_jugador.global_position + Vector2(0, -30)
 	
 func _input(event):
-	if Input.is_action_pressed("throw_ball") and GameData.game_over != true:
+	if Input.is_action_pressed("throw_ball") and GameData.game_over != true and GameData.game_started == true and sobre_jugador == true:
+		GameData.nivell_iniciat = false
 		sobre_jugador = false
-		velocity = Vector2(jugador.velocity.normalized().x, -1).normalized() * 400  # Llança cap amunt
+		velocity = Vector2(n_jugador.velocity.normalized().x, -1).normalized() * 400  # Llança cap amunt
 	

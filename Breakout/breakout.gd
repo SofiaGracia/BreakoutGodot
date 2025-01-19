@@ -13,7 +13,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			$HUD/GameOverLabel.visible=true
 			$HUD/Button.visible=true
 			GameData.game_over=true
-		
+		if(GameData.joc_superat == true):
+			$HUD/WinLabel.visible=true
+			$HUD/Button.visible=true
 		# Hem de cridar a set_ball_velocity()
 		# En set_ball_velocity() es reiniciarà la posició de la pilota
 		$"CharacterBody2D-Pilota".reset_ball($"CharacterBody2D-Player")
